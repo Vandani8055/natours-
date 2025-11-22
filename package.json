@@ -1,4 +1,9 @@
 {
+  "engines": {
+  "node": "22.13.1",
+  "npm": "11.1.0"
+},
+
   "name": "natours",
   "version": "1.0.0",
   "description": "Learning node, express , mongoDB",
