@@ -80,14 +80,14 @@
 //   });
 // });
 
-
-
-
 const Tour = require('../models/tourModel');
+const Review = require('../models/reviewModel');
 const User = require('../models/userModel');
 const Booking = require('../models/bookingModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+
+
 
 exports.getOverview = catchAsync(async (req, res, next) => {
   // 1) Get tour data from collection
@@ -97,50 +97,46 @@ exports.getOverview = catchAsync(async (req, res, next) => {
   // 3) Render that template using tour data from 1)
   res.status(200).render('overview', {
     title: 'All Tours',
-    tours
+    tours,
   });
 });
 
 exports.getTour = catchAsync(async (req, res, next) => {
   // 1) Get the data, for the requested tour (including reviews and guides)
   const tour = await Tour.findOne({ slug: req.params.slug })
-   .populate({
-    path: 'reviews',
-    populate: {
-      path: 'user',
-      select: 'name photo'
-    }
-  })
-  .populate({
-    path: 'guides',
-    select: 'name photo role'
-  });
- 
+    .populate({
+      path: 'reviews',
+      populate: {
+        path: 'user',
+        select: 'name photo',
+      },
+    })
+    .populate({
+      path: 'guides',
+      select: 'name photo role',
+    });
 
   if (!tour) {
     return next(new AppError('There is no tour with that name.', 404));
   }
 
-
-  
-
   // 2) Build template
   // 3) Render template using data from 1)
   res.status(200).render('tour', {
     title: `${tour.name} Tour`,
-    tour
+    tour,
   });
 });
 
 exports.getLoginForm = (req, res) => {
   res.status(200).render('login', {
-    title: 'Log into your account'
+    title: 'Log into your account',
   });
 };
 
 exports.getAccount = (req, res) => {
   res.status(200).render('account', {
-    title: 'Your account'
+    title: 'Your account',
   });
 };
 
@@ -149,12 +145,12 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
   const bookings = await Booking.find({ user: req.user.id });
 
   // 2) Find tours with the returned IDs
-  const tourIDs = bookings.map(el => el.tour);
+  const tourIDs = bookings.map((el) => el.tour);
   const tours = await Tour.find({ _id: { $in: tourIDs } });
 
   res.status(200).render('overview', {
     title: 'My Tours',
-    tours
+    tours,
   });
 });
 
@@ -163,16 +159,46 @@ exports.updateUserData = catchAsync(async (req, res, next) => {
     req.user.id,
     {
       name: req.body.name,
-      email: req.body.email
+      email: req.body.email,
     },
     {
       new: true,
-      runValidators: true
-    }
+      runValidators: true,
+    },
   );
 
   res.status(200).render('account', {
     title: 'Your account',
-    user: updatedUser
+    user: updatedUser,
   });
-});
+}); // Removed the extra parenthesis here!
+
+
+
+
+
+
+
+
+// // ✅ CORRECT CODE
+exports.getMyReviews = async (req, res, next) => {
+  try {
+    // 1) Find all reviews written by the current user (assuming Review model exists)
+    // NOTE: If you are using Mongoose, make sure to .populate('tour') 
+    // to get the tour details needed in your Pug template.
+    const reviews = await Review.find({ user: req.user.id }).populate('tour');
+
+    // 2) Send the successful status code (200) and render the Pug template
+    res.status(200).render('myReviews', {
+      title: 'My Reviews',
+      reviews: reviews,
+      user: req.user
+    });
+
+  } catch (err) {
+    // Handle errors if data fetching fails
+    // This is good practice to include
+    next(err); 
+  }
+};
+

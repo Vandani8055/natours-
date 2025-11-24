@@ -305,6 +305,7 @@
 
 
 const crypto = require('crypto');
+const bcrypt = require('bcryptjs'); // ✅ important
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const User = require('./../models/userModel');
@@ -364,27 +365,29 @@ exports.signup = catchAsync(async (req, res, next) => {
 });
 
 exports.login = catchAsync(async (req, res, next) => {
-  
   const { email, password } = req.body;
 
   // 1) Check if email and password exist
   if (!email || !password) {
     return next(new AppError('Please provide email and password!', 400));
   }
-  // 2) Check if user exists && password is correct
+
+  // 2) Check if user exists
   const user = await User.findOne({ email }).select('+password');
-  // console.log("Entered password:", password);
-// console.log("Hash in DB:", user.password);
-
-// const isMatch = await user.correctPassword(password, user.password);
-// console.log("Password match result:", isMatch);
-
-
-  if (!user || !(await user.correctPassword(password, user.password))) {
+  if (!user) {
     return next(new AppError('Incorrect email or password', 401));
   }
 
-  // 3) If everything ok, send token to client
+  // 3) Check if password is correct
+  const correct = await bcrypt.compare(password, user.password);
+  console.log("Entered password:", password);
+  console.log("Hash in DB:", user.password);
+
+  if (!correct) {
+    return next(new AppError('Incorrect email or password', 401));
+  }
+
+  // 4) If everything ok, send token to client
   createSendToken(user, 200, res);
 });
 

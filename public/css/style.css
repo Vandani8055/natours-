@@ -86,24 +86,33 @@ body {
 // ====================================================
 */
 
+/* ALERTS */
 .alert {
   position: fixed;
-  top: 0;
+  top: 6rem; /* just below your fixed header (6rem height) */
   left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
+
   color: #fff;
-  font-size: 1.8rem;
-  font-weight: 400;
+  font-size: 1.6rem;
+  font-weight: 500;
   text-align: center;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  padding: 1.6rem 15rem;
-  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
+
+  padding: 1.2rem 3rem; /* reduced padding */
+  max-width: 90%;       /* responsive width */
+  border-radius: 5px;
+
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.25);
+  word-wrap: break-word;
+  white-space: normal;
 }
+
+/* Success / Error variants */
 .alert--success {
   background-color: #20bf6b;
 }
+
 .alert--error {
   background-color: #eb4d4b;
 }
@@ -1370,188 +1379,381 @@ body {
 
 
 
+/* ACCOUNT */
+/* ========================================================================= */
+/* 1. ALTERNATIVE USER VIEW LAYOUT (Using Grid) */
+/* ========================================================================= */
 
+/* ========================================================================= */
+/* 0. UTILITY & BASE STYLES */
+/* ========================================================================= */
 
-/* 
-// ====================================================
-// 8. USER ACCOUNT & FORMS
-// ==================================================== */
-
-.user-view {
-  background: #ffffff;
-  max-width: 120rem;
-  margin: 3rem auto;
-  min-height: 90vh;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid #e5e9ef;
-  display: flex;
+.heading-secondary {
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #333;
+  margin-bottom: 3.5rem !important; /* Standard spacing for headings */
 }
 
-/* SIDEBAR STYLE 2 */
+.ma-bt-md { margin-bottom: 2.25rem !important; }
+.ma-bt-lg { margin-bottom: 4rem !important; }
+.right { text-align: right !important; }
+
+/* Separator Line */
+.line {
+  margin: 5rem 0;
+  height: 1px;
+  background-color: #eee;
+  width: 100%;
+}
+
+/* ========================================================================= */
+/* 1. USER VIEW LAYOUT (The Main Container) */
+/* ========================================================================= */
+
+.user-view {
+  background-color: #fff;
+  max-width: 130rem;
+  margin: 4rem auto; /* Center the box on the page */
+  min-height: 80vh; 
+  box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.15); /* Soft, professional shadow */
+  border-radius: 8px;
+  overflow: hidden; /* Ensures shadow/border look clean */
+
+  /* GRID LAYOUT: Modern and reliable way to structure main content */
+  display: grid;
+  grid-template-columns: 28rem 1fr; /* Fixed sidebar width, rest for content */
+}
+
 .user-view__menu {
-  flex: 26rem 0 0;
-  background: #f8fafc;
-  padding: 3rem 0;
+  background-color: #f7f7f7;
+  padding: 4rem 0;
+  border-right: 1px solid #eee;
 }
 
 .user-view__content {
-  flex: 1;
-  background: #ffffff;
-  padding: 4rem 0;
+  padding: 6rem 8rem;
 }
 
 .user-view__form-container {
-  max-width: 70rem;
-  margin: 0 auto;
-  padding: 0 4rem;
+  max-width: 65rem;
+  margin: 0 auto; /* Center the form within its container */
 }
 
-/* =====================
-   SIDE NAV STYLE 2
-   ===================== */
+/* ========================================================================= */
+/* 2. SIDE NAVIGATION MENU (The Fix + Professional Look) */
+/* ========================================================================= */
 
 .side-nav {
   list-style: none;
+  padding: 0 1rem;
 }
 
+/* Individual list item styling */
 .side-nav li {
-  margin: 0.6rem 1rem;
+  margin: 0.8rem 0;
+  border-left: 0.4rem solid transparent; /* Ready for active state */
+  transition: all 0.2s;
 }
 
+/* Hover effect */
+.side-nav li:not(.side-nav--active):hover {
+  background-color: #f0f0f0;
+}
+
+/* Active/selected list item */
+.side-nav--active {
+  border-left: 0.4rem solid #55c57a;
+  background-color: #f0f0f0;
+}
+
+/* THE ALIGNMENT FIX: Use Flexbox on the anchor tag */
 .side-nav a {
-  padding: 1.2rem 2rem;
   display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  color: #444;
-  font-size: 1.4rem;
-  font-weight: 500;
+  align-items: center; /* Vertically center icon and text */
+  padding: 1.2rem 3rem;
   text-decoration: none;
-  border-radius: 6px;
-  transition: all 0.2s ease;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  color: #777;
+  font-weight: 500;
+  transition: all 0.2s;
 }
 
-.side-nav a:hover {
-  background: #eef5f2;
-  color: #2d8f6f;
+/* Icon Styling */
+.side-nav a svg {
+  height: 2rem;
+  width: 2rem;
+  margin-right: 2rem; /* Spacing between icon and text */
+  fill: currentColor; /* Use text color for icon */
+  transition: all 0.2s;
 }
 
+/* Active link color */
 .side-nav--active a {
-  background: #dff4ec;
-  color: #2d8f6f;
+  color: #55c57a;
+  font-weight: 700;
 }
+/* Active icon color is inherited via currentColor */
 
-.side-nav svg {
-  height: 1.7rem;
-  width: 1.7rem;
-  fill: currentColor;
-}
 
+/* Admin Nav Styling */
 .admin-nav {
-  margin-top: 3.5rem;
+  margin-top: 5rem;
+  padding-top: 3rem;
+  border-top: 1px solid #eee;
 }
 
 .admin-nav__heading {
-  margin: 0 2.5rem 1rem;
-  font-size: 1.1rem;
-  letter-spacing: 1px;
-  color: #777;
+  margin: 0 0 2rem 3rem;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  color: #aaa;
+  font-weight: 700;
 }
 
-
-/* =====================
-   FORM STYLE 2 : PREMIUM SOFT CARD
-   ===================== */
-
-.login-form {
-  
-  background: #ffffff;
-  
-  border: 1px solid #e5e9ef;
-  padding: 3.5rem 4.5rem;
-  border-radius: 18px;
-}
+/* ========================================================================= */
+/* 3. FORM STYLES (Clean and modern inputs) */
+/* ========================================================================= */
 
 .form__group:not(:last-child) {
-  margin-bottom: 2.2rem;
+  margin-bottom: 2.5rem;
 }
 
 .form__label {
-  font-size: 1.4rem;
+  display: block;
+  font-size: 1.6rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #222;
+  color: #555;
+  margin-bottom: 0.75rem;
 }
 
 .form__input {
+  display: block;
+  font-family: inherit;
+  font-size: 1.6rem;
+  color: inherit;
+  padding: 1.5rem 2rem;
+  border: 1px solid #ddd; /* Subtle default border */
   width: 100%;
-  padding: 1.15rem 1.5rem;
-  font-size: 1.4rem;
-  border-radius: 8px;
-  border: 1px solid #dfe6ec;
-  background: #fcfcfc;
-  transition: all 0.2s ease;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: all 0.3s;
 }
 
 .form__input:focus {
   outline: none;
-  border-color: #2d8f6f;
-  box-shadow: 0 0 0 2px rgba(45,143,111,0.15);
+  border: 1px solid #55c57a; /* Highlight border on focus */
+  background-color: #fff;
+  box-shadow: 0 0 0 0.3rem rgba(85, 197, 122, 0.2); /* Subtle glow */
+}
+.form__input:focus:invalid {
+  border: 1px solid #ff7730;
+  box-shadow: 0 0 0 0.3rem rgba(255, 119, 48, 0.2);
+}
+.form__input::-webkit-input-placeholder {
+  color: #bbb;
 }
 
-/* USER PHOTO UPLOAD STYLE 2 */
-
+/* Photo Upload */
 .form__photo-upload {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  font-size: 1.6rem;
 }
 
 .form__user-photo {
-  height: 75px;
-  width: 75px;
+  height: 8rem;
+  width: 8rem;
   border-radius: 50%;
-  border: 3px solid #e5e9ef;
+  object-fit: cover;
+  margin-right: 2.5rem;
+  border: 3px solid #eee;
 }
 
 .form__upload {
-  display: none;
+  /* Hidden file input */
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 
 .form__upload + label {
-  background: transparent;
-  color: #2d8f6f;
-  border: 1px solid #2d8f6f;
-  padding: 0.6rem 1.4rem;
-  border-radius: 6px;
-  font-size: 1.3rem;
+  color: #55c57a;
+  display: inline-block;
+  text-decoration: none;
+  border-bottom: 2px solid #55c57a;
+  padding: 3px;
+  transition: all 0.2s;
   cursor: pointer;
-  transition: all 0.2s ease;
+  font-weight: 500;
+}
+.form__upload + label:hover {
+  background-color: #55c57a;
+  color: #fff;
+  border-bottom: 2px solid #55c57a;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
 }
 
-.form__upload + label:hover {
-  background: #2d8f6f;
+/* ========================================================================= */
+/* 4. BUTTON STYLES */
+/* ========================================================================= */
+
+.btn {
+  padding: 1.4rem 3rem;
+  border-radius: 10rem;
+  text-transform: uppercase;
+  font-size: 1.6rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.btn--small {
+  padding: 1.1rem 2.5rem;
+  font-size: 1.4rem;
+}
+
+.btn--green {
+  background-color: #55c57a;
   color: #fff;
 }
 
-/* =====================
-   RESPONSIVE STYLE 2
-   ===================== */
+.btn--green:hover {
+  background-color: #7dd56f;
+  box-shadow: 0 0.8rem 1.5rem rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
 
-/* @media (max-width: 768px) {
-  .user-view {
-    flex-direction: column;
-  }
 
-  .user-view__menu {
-    border-bottom: 1px solid #e5e9ef;
-  }
 
-  .user-view__form-container {
-    padding: 0 2rem;
-  }
-} */
+
+
+
+
+
+
+
+
+/* ========================================================================= */
+/* 1. LOGIN FORM CONTAINER */
+/* ========================================================================= */
+
+.login-form {
+  /* Center the form on the screen */
+  margin: 10rem auto; 
+  position: relative; /* Needed if you want to use absolute positioning for elements inside */
+  
+  /* Styling for the form container card */
+  max-width: 55rem;
+  background-color: #fff;
+  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.15); /* Slightly prominent shadow */
+  padding: 5rem 7rem;
+  border-radius: 8px;
+}
+
+/* Ensure the main content area centers this form */
+.main {
+    /* If your .main class doesn't already take up the page height */
+    min-height: 100vh;
+}
+
+/* ========================================================================= */
+/* 2. FORM COMPONENTS (Re-using styles from Account Form) */
+/* ========================================================================= */
+
+/* General Form Group Spacing */
+.form__group:not(:last-child) {
+  margin-bottom: 2.5rem;
+}
+
+/* Form Label */
+.form__label {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 0.75rem;
+}
+
+/* Form Input (Matches professional look) */
+.form__input {
+  display: block;
+  font-family: inherit;
+  font-size: 1.6rem;
+  color: inherit;
+  padding: 1.5rem 2rem;
+  border: 1px solid #ddd;
+  width: 100%;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: all 0.3s;
+}
+
+.form__input:focus {
+  outline: none;
+  border: 1px solid #55c57a;
+  background-color: #fff;
+  box-shadow: 0 0 0 0.3rem rgba(85, 197, 122, 0.2);
+}
+.form__input:focus:invalid {
+  border: 1px solid #ff7730;
+  box-shadow: 0 0 0 0.3rem rgba(255, 119, 48, 0.2);
+}
+.form__input::-webkit-input-placeholder {
+  color: #bbb;
+}
+
+/* ========================================================================= */
+/* 3. TYPOGRAPHY AND BUTTONS (Matching Utilities) */
+/* ========================================================================= */
+
+.heading-secondary {
+  /* This is the h2 heading: 'Log into your account' */
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #333;
+  margin-bottom: 4rem !important; /* Uses ma-bt-lg from your Pug */
+  text-align: center;
+}
+
+/* Button Styling (Should be included from your general CSS file) */
+.btn {
+  padding: 1.4rem 3rem;
+  border-radius: 10rem;
+  text-transform: uppercase;
+  font-size: 1.6rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  /* Make button fill the width of the form */
+  width: 100%;
+}
+
+.btn--green {
+  background-color: #55c57a;
+  color: #fff;
+}
+
+.btn--green:hover {
+  background-color: #7dd56f;
+  box-shadow: 0 0.8rem 1.5rem rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+
 
 
 
@@ -1623,3 +1825,134 @@ body {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Custom CSS for the No Bookings Message */
+.message-box {
+    text-align: center;
+    padding: 5rem 0;
+    width: 100%; /* Ensure it spans the card-container width */
+}
+
+.message-box .heading-secondary {
+    color: #ff4757; /* A slight reddish tone for the error/missing state */
+    margin-bottom: 2rem !important;
+}
+
+.message-box__text {
+    font-size: 1.8rem;
+    color: #777;
+    margin-bottom: 1rem;
+}
+
+/* Style the button inside the message box */
+.message-box .btn {
+    display: inline-block; /* Make the button not take full width */
+    margin-top: 2rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- Review Display Styles --- */
+
+.reviews-grid {
+    /* Use Grid to organize cards cleanly */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 4rem; /* Space between cards */
+}
+
+.review-card {
+    background-color: #f9f9f9;
+    padding: 3rem;
+    border-radius: 8px;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.review-card__header {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.review-card__tour-name {
+    font-size: 2.2rem;
+    color: #55c57a;
+    margin-bottom: 0.5rem;
+}
+
+.review-card__rating {
+    display: flex;
+}
+
+.review-card__star {
+    height: 1.8rem;
+    width: 1.8rem;
+    margin-right: 0.2rem;
+}
+
+.review-card__star--active {
+    fill: #ff9900; /* Orange/Yellow for active stars */
+}
+
+.review-card__star--inactive {
+    fill: #ccc;
+}
+
+.review-card__description {
+    font-size: 1.6rem;
+    color: #444;
+    font-style: italic;
+    margin-bottom: 2.5rem;
+}
+
+.review-card__footer {
+    margin-top: auto; /* Pushes the footer to the bottom */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.review-card__link {
+    font-size: 1.4rem;
+    color: #777;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.review-card__link:hover {
+    color: #55c57a;
+}
+
+.review-card__date {
+    font-size: 1.2rem;
+    color: #aaa;
+}

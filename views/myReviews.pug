@@ -1,0 +1,33 @@
+extends base
+block content
+  main.main
+
+    .user-view__content
+      .user-view__review-container
+        h2.heading-secondary.ma-bt-lg My Submitted Reviews
+
+
+        if !reviews || reviews.length === 0
+          .message-box
+            h2.heading-secondary.heading-secondary--error.ma-bt-lg No Reviews Yet 📝
+            p.message-box__text You haven't written any reviews!
+            p.message-box__text Book and complete a tour to share your experience.
+
+        else
+          .reviews-grid
+            each review in reviews
+              .review-card
+                .review-card__header
+                  h3.heading-tertirary.review-card__tour-name= review.tour.name
+                  .review-card__rating
+                    // Dynamic Rating Logic
+                    - for (let i = 1; i <= 5; i++)
+                      svg.review-card__star(class=`review-card__star--${review.rating >= i ? 'active' : 'inactive'}`)
+                        use(xlink:href='/img/icons.svg#icon-star')
+
+                .review-card__body
+                  p.review-card__description= review.review
+
+                .review-card__footer
+                  a.review-card__link(href=`/tour/${review.tour.slug}`) View Tour
+                  span.review-card__date= review.createdAt.toLocaleDateString('en-us', { year: 'numeric', month: 'long', day: 'numeric' })
