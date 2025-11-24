@@ -327,11 +327,12 @@ const tourSchema = new mongoose.Schema(
       }
     ],
     guides: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'User'
-      }
-    ]
+  {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User'
+  }
+]
+
   },
   {
     toJSON: { virtuals: true },
@@ -386,14 +387,24 @@ tourSchema.pre(/^find/, function(next) {
   next();
 });
 
+// tourSchema.pre(/^find/, function(next) {
+//   this.populate({
+//     path: 'guides',
+//     select: '-__v -passwordChangedAt'
+//   });
+
+//   next();
+// });
+
+
 tourSchema.pre(/^find/, function(next) {
   this.populate({
     path: 'guides',
-    select: '-__v -passwordChangedAt'
+    select: 'name email role photo'
   });
-
   next();
 });
+
 
 // tourSchema.post(/^find/, function(docs, next) {
   // console.log(`Query took ${Date.now() - this.start} milliseconds!`);

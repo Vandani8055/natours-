@@ -1,16 +1,45 @@
+//- mixin reviewCard(review)
+//-   .reviews__card
+//-     .reviews__avatar
+//-       if review.user
+//-         img.reviews__avatar-img(src=`/img/users/${review.user.photo}`, alt=`${review.user.name}`)
+//-         h6.reviews__user= review.user.name
+//-       else
+//-         img.reviews__avatar-img(src='/img/users/default.jpg', alt='Deleted User')
+//-         h6.reviews__user Deleted User
+
+//-     p.reviews__text= review.review
+
+//-     .reviews__rating
+//-       each star in [1, 2, 3, 4, 5]
+//-         svg.reviews__star(class=`reviews__star--${review.rating >= star ? 'active' : 'inactive'}`)
+//-           use(xlink:href='/img/icons.svg#icon-star')
+
+
+
+
 mixin reviewCard(review)
   .reviews__card
     .reviews__avatar
-      if review.user
-        img.reviews__avatar-img(src=`/img/users/${review.user.photo}`, alt=`${review.user.name}`)
+      if review.user && review.user.name
+        - const userPhoto = review.user.photo ? `/img/users/${review.user.photo}` : '/img/users/default.jpg'
+        img.reviews__avatar-img(
+          src=userPhoto
+          alt=review.user.name
+          onerror="this.src='/img/users/default.jpg'"
+        )
         h6.reviews__user= review.user.name
       else
-        img.reviews__avatar-img(src='/img/users/default.jpg', alt='Deleted User')
-        h6.reviews__user Deleted User
+        img.reviews__avatar-img(
+          src='/img/users/default.jpg'
+          alt='Guest User'
+        )
+        h6.reviews__user Guest User
 
-    p.reviews__text= review.review
+    p.reviews__text= review.review || 'No review text provided.'
 
     .reviews__rating
+      - const rating = review.rating || 0
       each star in [1, 2, 3, 4, 5]
-        svg.reviews__star(class=`reviews__star--${review.rating >= star ? 'active' : 'inactive'}`)
+        svg.reviews__star(class=`reviews__star--${rating >= star ? 'active' : 'inactive'}`)
           use(xlink:href='/img/icons.svg#icon-star')

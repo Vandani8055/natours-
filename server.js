@@ -101,15 +101,19 @@ process.on('uncaughtException', err => {
 dotenv.config({ path: './config.env' });
 const app = require('./app');
 
-const DB = process.env.DATABASE.replace(
-  '<PASSWORD>',
-  process.env.DATABASE_PASSWORD
-);
 
-mongoose
-  .connect(DB)
-  .then(() => console.log('DB connection successful!'))
-  .catch(err => console.log('DB connection error:', err));
+
+(async () => {
+  try {
+    await mongoose.connect(process.env.DATABASE);
+    console.log('✅ DB connection successful!');
+    console.log('Connected DB:', mongoose.connection.name);
+    console.log('DB Host:', mongoose.connection.host);
+  } catch (err) {
+    console.error('❌ DB ERROR:', err);
+  }
+})();
+
 
 
 

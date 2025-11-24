@@ -817,88 +817,123 @@ body {
 /* ===========================
    REVIEWS SECTION
 =========================== */
+/* ========================
+   SECTION REVIEWS
+======================== */
 .section-reviews {
   margin-top: calc(0px - var(--section-rotate));
-  padding: calc(5rem + var(--section-rotate)) 0 6rem 0;
+  padding: calc(6rem + var(--section-rotate)) 0 8rem;
   position: relative;
-  background-color: #f9fafb; /* very light, clean background */
-  clip-path: polygon(0 var(--section-rotate), 100% 0, 100% calc(100% - var(--section-rotate)), 0 100%);
-  z-index: 1;
+  z-index: 1000;
+
+  /* Clean neutral background */
+  background-color: #f9f9f9;
+  clip-path: polygon(
+    0 var(--section-rotate),
+    100% 0,
+    100% calc(100% - var(--section-rotate)),
+    0 100%
+  );
+  -webkit-clip-path: polygon(
+    0 var(--section-rotate),
+    100% 0,
+    100% calc(100% - var(--section-rotate)),
+    0 100%
+  );
 }
 
+/* ========================
+   REVIEWS CONTAINER
+======================== */
 .reviews {
   display: flex;
-  gap: 2rem;
+  gap: 3rem;
+  padding: 5rem 5%;
   overflow-x: auto;
-  padding: 0 5%;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+
+  /* subtle scrollbar for modern look */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100,100,100,0.4) rgba(0,0,0,0.05);
 }
 
-/* Subtle modern scrollbar */
 .reviews::-webkit-scrollbar {
-  height: 6px;
+  height: 8px;
 }
 
 .reviews::-webkit-scrollbar-thumb {
-  background-color: rgba(40,180,135,0.6);
-  border-radius: 3px;
+  background-color: rgba(100,100,100,0.4);
+  border-radius: 4px;
 }
 
 .reviews::-webkit-scrollbar-track {
-  background-color: rgba(0,0,0,0.05);
+  background: rgba(0,0,0,0.05);
 }
 
-.reviews {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(40,180,135,0.6) rgba(0,0,0,0.05);
-}
-
+/* ========================
+   REVIEW CARD
+======================== */
 .reviews__card {
-  flex: 0 0 28rem; /* fixed card width */
+  flex: 0 0 30rem; /* fixed width for horizontal scroll */
+  padding: 3rem 2.5rem;
   background-color: #ffffff;
   border-radius: 1.5rem;
-  padding: 2.5rem 2rem;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  box-shadow: 0 1.5rem 4rem rgba(0,0,0,0.15);
   scroll-snap-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .reviews__card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 2rem 6rem rgba(0,0,0,0.25);
+}
+
+/* ========================
+   AVATAR & USER
+======================== */
+.reviews__avatar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
 .reviews__avatar-img {
-  height: 4.5rem;
-  width: 4.5rem;
+  height: 5rem;
+  width: 5rem;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 1rem;
-  border: 2px solid var(--primary-light);
+  margin-right: 1.5rem;
+  border: 2px solid #28b487; /* optional primary color accent */
 }
 
 .reviews__user {
-  font-size: 1.45rem;
-  font-weight: 600;
+  font-size: 1.6rem;
+  font-weight: 700;
   text-transform: capitalize;
   color: #222;
-  margin-bottom: 0.6rem;
 }
 
+/* ========================
+   REVIEW TEXT
+======================== */
 .reviews__text {
   font-size: 1.4rem;
   font-style: italic;
   font-weight: 400;
   text-align: center;
   color: #555;
-  line-height: 1.6;
-  margin-bottom: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
 }
 
+/* ========================
+   RATING STARS
+======================== */
 .reviews__rating {
   display: flex;
   justify-content: center;
@@ -906,72 +941,92 @@ body {
 }
 
 .reviews__star {
-  height: 1.8rem;
-  width: 1.8rem;
+  width: 2rem;
+  height: 2rem;
   margin-right: 2px;
 }
 
-.reviews__star--active { fill: #28b487; }
-.reviews__star--inactive { fill: #ccc; }
+.reviews__star--active {
+  fill: #28b487;
+}
 
-Responsive
+.reviews__star--inactive {
+  fill: #ccc;
+}
+
+/* ========================
+   RESPONSIVE
+======================== */
 @media (max-width: 992px) {
-  .reviews__card { flex: 0 0 24rem; }
+  .reviews__card {
+    flex: 0 0 24rem;
+  }
 }
 
 @media (max-width: 576px) {
-  .reviews__card { flex: 0 0 18rem; padding: 2rem 1.5rem; }
+  .reviews__card {
+    flex: 0 0 18rem;
+    padding: 2rem 1.5rem;
+  }
+
+  .reviews {
+    gap: 1.5rem;
+  }
 }
+
 
 
 /* ===========================
    CTA SECTION
 =========================== */
+/* =========================
+   CTA SECTION
+========================= */
 .section-cta {
   margin-top: calc(0px - var(--section-rotate));
-  padding: calc(8rem + var(--section-rotate)) 5% 6rem 5%;
-  background-color: #f9fafb; /* subtle light background */
+  padding: 8rem 5% 6rem 5%;
+  background-color: #f7f7f7; /* subtle background */
   position: relative;
   z-index: 1;
 }
 
+/* =========================
+   CTA CARD
+========================= */
 .cta {
   max-width: 90rem;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* keep logo fully visible */
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  border-radius: var(--radius-lg);
-  padding: 4rem 4rem 4rem 6rem;
+  gap: 3rem;
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  padding: 4rem 4rem 4rem 4rem;
+  box-shadow: 0 2rem 4rem rgba(0,0,0,0.08);
   position: relative;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border-radius: 5rem;
-  
 }
 
 .cta:hover {
   transform: translateY(-3px);
-  box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+  box-shadow: 0 2.5rem 5rem rgba(0,0,0,0.12);
 }
 
-/* Logo wrapper fix */
+/* =========================
+   CTA IMAGES
+========================= */
 .cta__img-wrapper {
-  position: relative;
   display: flex;
-  gap: -1.5rem; /* slight overlap of extra images */
+  gap: 1.5rem;
   align-items: center;
-  min-width: 10rem; /* ensure logo has space */
 }
 
 .cta__img {
-  height: 8rem;
   width: 8rem;
+  height: 8rem;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.08);
   transition: transform 0.3s ease;
 }
 
@@ -981,92 +1036,116 @@ Responsive
 
 /* Logo circle */
 .cta__img--logo {
-  height: 8rem; /* bigger to show full logo */
-  width: 8rem;
-  background: linear-gradient(to right bottom, var(--primary-light), var(--primary));
-  padding: 1.5rem;
+  background: linear-gradient(to right bottom, #7dd56f, #28b487);
+  padding: 1rem;
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 10;
+  align-items: center;
 }
 
 .cta__img--logo img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* ensure logo fits fully */
+  object-fit: contain;
   border-radius: 50%;
 }
 
 /* Extra layered images */
 .cta__img--1 {
-  height: 8rem;
-  width: 8rem;
+  transform: translateY(-10%) scale(0.95);
   z-index: 9;
 }
 
 .cta__img--2 {
-  height: 8rem;
-  width: 8rem;
+  transform: translateY(5%) scale(0.9);
   z-index: 8;
 }
 
-/* CTA content */
+/* =========================
+   CTA CONTENT
+========================= */
 .cta__content {
   display: flex;
   flex-direction: column;
+  align-items: flex-start; /* allows button to shrink */
   gap: 1rem;
   flex: 1;
-  margin-left: 3rem;
 }
 
 .cta__text {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #222;
+  font-size: 1.8rem;
+  font-weight: 500;
   line-height: 1.4;
+  color: #222;
 }
 
-.cta button {
-  background: linear-gradient(to right, var(--primary-light), var(--primary));
-  border: none;
-  color: #fff;
-  border-radius: 50px;
-  padding: 1.2rem 3rem;
+/* =========================
+   CTA BUTTON
+========================= */
+#book-tour,
+.cta__content a.btn {
+  display: inline-block;       /* shrink-to-fit */
+  width: auto !important;      /* ignore full-width classes */
+  max-width: 14rem;            /* optional cap */
+  padding: 1rem 2rem;      /* small height & width */
+  font-size: 0.90rem;          /* smaller text */
+  border-radius: 30px;
   font-weight: 600;
-  font-size: 1.2rem;
+  text-align: center;
+  background: linear-gradient(to right, #7dd56f, #28b487);
+  color: #fff;
+  border: none;
   cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
   transition: all 0.3s ease;
-  align-self: flex-start;
 }
 
-.cta button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+#book-tour:hover,
+.cta__content a.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.12);
 }
 
-/* Responsive */
+/* =========================
+   RESPONSIVE
+========================= */
 @media (max-width: 992px) {
   .cta {
     flex-direction: column;
-    padding: 3rem 2rem;
     text-align: center;
+    padding: 3rem 2rem;
   }
   .cta__img-wrapper {
-    margin-bottom: 2rem;
-    gap: 0.5rem;
     justify-content: center;
-    min-width: 0;
+    margin-bottom: 2rem;
   }
   .cta__content {
-    margin-left: 0;
-    gap: 1.5rem;
     align-items: center;
   }
-  .cta button {
+  #book-tour,
+  .cta__content a.btn {
     align-self: center;
+    padding: 0.4rem 1.2rem;
+    font-size: 0.8rem;
   }
 }
+
+@media (max-width: 576px) {
+  .cta__text {
+    font-size: 1.5rem;
+  }
+  #book-tour,
+  .cta__content a.btn {
+    padding: 0.35rem 1rem;
+    font-size: 0.75rem;
+  }
+  .cta__img {
+    width: 6rem;
+    height: 6rem;
+  }
+}
+
+
 
 
 

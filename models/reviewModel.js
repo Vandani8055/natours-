@@ -119,6 +119,7 @@
 // review / rating / createdAt / ref to tour / ref to user
 const mongoose = require('mongoose');
 const Tour = require('./tourModel');
+const User = require('./userModel');
 
 const reviewSchema = new mongoose.Schema(
   {
