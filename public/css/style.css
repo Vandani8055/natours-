@@ -988,6 +988,7 @@ body {
   background-color: #f7f7f7; /* subtle background */
   position: relative;
   z-index: 1;
+
 }
 
 /* =========================
@@ -1568,7 +1569,9 @@ body {
 .footer{
   background: #fafafa;
   padding: 1.8rem 1rem;
+  margin-top: 12rem;
   border-top: 1px solid #e2e2e2;
+  
 }
 
 .footer__container{
